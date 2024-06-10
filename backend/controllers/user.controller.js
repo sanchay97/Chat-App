@@ -10,14 +10,15 @@ export const getUsersForSidebar = async(req, res) => {
         const filteredUsers = await User.find({_id: {$ne: loggedInUserId}}).select("-password");
 
         res.status(200).json({
+            success:true,
             filteredUsers
         });
         
     } catch (err) {
         console.log("Error in getUsersForSidebar : ", err.message);
         res.status(500).json({
-            success:true,
-            message:err.message
+            success:false,
+            error:err.message
         })
     }
 }

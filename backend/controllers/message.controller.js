@@ -38,6 +38,7 @@ export const sendMessage = async(req, res) => {
         await Promise.all([conversation.save(), newMessage.save()]);
 
         res.status(201).json({
+            success:true,
             newMessage
         });
 
@@ -64,12 +65,12 @@ export const getMessages = async(req, res) => {
         }).populate("messages");
 
         if(!conversation) {
-            return res.status(200).json([]);
+            return res.status(200).json({success:true,messages:[]});
         }
 
         const messages = conversation.messages
 
-        res.status(200).json(messages);
+        res.status(200).json({success:true,messages});
 
     } catch (err) {
         console.log("Error in getMessages : ", err.message);
